@@ -27,14 +27,15 @@ def change_pos():
     i = 0
     posx, posy = pos()
     for segment in snake.segments:
-        if (posx, posy) != segment.pos:
+        if [posx, posy] != c.coords(segment.instance)[:2]:
             i += 1
     print(i, ' ', len(snake.segments))
     if len(snake.segments) == i:
         create_block(posx, posy)
     else:
-        change_pos()
         print("Chang")
+        change_pos()
+
 
 
 def main():
@@ -56,7 +57,7 @@ def main():
         else:
             for index in range(len(snake.segments)-1):
                 if head_coords == c.coords(snake.segments[index].instance):
-                    IN_GAME = False
+                    # IN_GAME = False
                     print("end game")
         root.after(100, main)
     # Not IN_GAME -> stop game and print message
@@ -71,7 +72,7 @@ class Segment(object):
         self.instance = c.create_rectangle(x, y,
                                            x+SEG_SIZE, y+SEG_SIZE,
                                            fill="white")
-        self.pos = (x, y)
+        self.pos = (x+SEG_SIZE, y+SEG_SIZE)
 
 
 class Snake(object):
@@ -93,8 +94,9 @@ class Snake(object):
 
         x1, y1, x2, y2 = c.coords(self.segments[-2].instance)
         c.coords(self.segments[-1].instance,
-                 x1+self.vector[0]*SEG_SIZE, y1+self.vector[1]*SEG_SIZE,
-                 x2+self.vector[0]*SEG_SIZE, y2+self.vector[1]*SEG_SIZE)
+                 10+x1+self.vector[0]*SEG_SIZE, 10+y1+self.vector[1]*SEG_SIZE,
+                 x2+self.vector[0]*SEG_SIZE, 10+y2+self.vector[1]*SEG_SIZE)
+
 
     def add_segment(self):
         """ Adds segment to the snake """
@@ -164,5 +166,4 @@ restart_text = c.create_text(WIDTH/2, HEIGHT-HEIGHT/3,
                              state='hidden')
 c.tag_bind(restart_text, "<Button-1>", clicked)
 start_game()
-print(snake.segments[0].pos)
 root.mainloop()
