@@ -94,8 +94,8 @@ class Snake(object):
 
         x1, y1, x2, y2 = c.coords(self.segments[-2].instance)
         c.coords(self.segments[-1].instance,
-                 10+x1+self.vector[0]*SEG_SIZE, 10+y1+self.vector[1]*SEG_SIZE,
-                 x2+self.vector[0]*SEG_SIZE, 10+y2+self.vector[1]*SEG_SIZE)
+                 x1+self.vector[0]*SEG_SIZE, y1+self.vector[1]*SEG_SIZE,
+                 x2+self.vector[0]*SEG_SIZE, y2+self.vector[1]*SEG_SIZE)
 
 
     def add_segment(self):
